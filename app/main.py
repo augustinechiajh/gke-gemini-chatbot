@@ -1,24 +1,29 @@
 import streamlit as st
+import requests
 
-st.title("GKE LLM Chatbot Demo")
+OLLAMA_HOST = "http://host.docker.internal:11434"
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+def ask_ollama(prompt):
+    payload = {
+        "model": "mistral",
+        "prompt": prompt,
+        "stream": False
+    }
 
-def submit_message():
-    user_msg = st.session_state.user_input
-    st.session_state.messages.append({"role": "user", "content": user_msg})
+    response = requests.post(f"{OLLAMA_HOST}/api/generate", json=payload, timeout=60)
     
-    # Dummy response (replace this with real LLM call later)
-    bot_response = f"Echo: {user_msg}"
-    st.session_state.messages.append({"role": "bot", "content": bot_response})
-    
-    st.session_state.user_input = ""
-
-st.text_input("Talk to the bot:", key="user_input", on_change=submit_message)
-
-for msg in st.session_state.messages:
-    if msg["role"] == "user":
-        st.markdown(f"**You:** {msg['content']}")
+    if response.status_code == 200:
+        return response.json()["response"]
     else:
-        st.markdown(f"**Bot:** {msg['content']}")
+        return f"Error: {response.status_code} - {response.text}"
+
+st.title("Chat with Mistral via Ollama")
+
+user_input = st.text_input("Enter a prompt:")
+
+if st.button("Submit"):
+    if user_input:
+        response = ask_ollama(user_input)
+        st.write(response)
+    else:
+        st.warning("Please enter a prompt.")
