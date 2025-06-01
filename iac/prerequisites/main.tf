@@ -9,17 +9,15 @@ resource "google_iam_workload_identity_pool_provider" "github_provider" {
   workload_identity_pool_provider_id = "github-actions-oidc-provider"
   display_name                       = "GitHub Actions OIDC Provider"
   description                        = "GitHub OIDC connect for CI/CD automation pipeline"
-  attribute_condition = <<EOT
-    assertion.repository_owner_id == "${var.github_owner_id}" &&
-    attribute.repository == "${var.github_repo}" &&
-    assertion.ref == "refs/heads/main" &&
-    assertion.ref_type == "branch"
+  attribute_condition                = <<EOT
+    assertion.repository == "${var.github_repo}" &&
+    assertion.ref == "refs/heads/main"
 EOT
   attribute_mapping = {
     "google.subject"       = "assertion.sub"
     "attribute.repository" = "assertion.repository"
   }
-    oidc {
+  oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
   }
 }
