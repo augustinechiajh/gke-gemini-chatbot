@@ -2,6 +2,8 @@
 
 This project deploys the Ollama phi3.5 language model on Google Kubernetes Engine (GKE), with a Streamlit-based frontend UI. Infrastructure is managed using Terraform, and deployed using CI/CD pipelines from GitHub Actions.
 
+Model used: [https://ollama.com/library/phi3.5](Phi3.5 on Ollama)
+
 ## Architecture
 
 ![Architecture Diagram](assets/gke-llm-chatbot-demo.drawio.png)
