@@ -10,9 +10,9 @@ resource "google_container_cluster" "primary" {
 resource "google_container_node_pool" "primary_nodes" {
   depends_on = [google_container_cluster.primary]
 
-  name       = "node-pool"
-  location   = var.zone
-  cluster    = google_container_cluster.primary.name
+  name     = "node-pool"
+  location = var.zone
+  cluster  = google_container_cluster.primary.name
 
   node_config {
     machine_type    = "n2-standard-8"
