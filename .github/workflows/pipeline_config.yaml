@@ -20,6 +20,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Inspect OIDC Token Claims
+      run: |
+        echo "${ID_TOKEN}" | cut -d '.' -f2 | base64 -d | jq
+      shell: bash
+      env:
+        ID_TOKEN: ${{ steps.auth.outputs.id_token }}
+
     - name: Authenticate to GCP
       uses: 'google-github-actions/auth@v2'
       with:
