@@ -34,7 +34,7 @@ jobs:
         gcloud config set auth/impersonate_service_account deployment-service-account@mystic-castle-460413-g6.iam.gserviceaccount.com
 
     - name: Run CI checks
-      uses: augustinechiajh/gha-ci-tf
+      uses: augustinechiajh/gha-ci-tf@main
       with:
         terraform-work-dir: 'iac/tf'
     
