@@ -31,7 +31,7 @@ jobs:
     
     - name: Assume deployment service account
       run: |
-        gcloud config set auth/impersonate_service_account deployment-serviceaccount@mystic-castle-460413-g6.iam.gserviceaccount.com
+        gcloud config set auth/impersonate_service_account deployment-service-account@mystic-castle-460413-g6.iam.gserviceaccount.com
 
     - name: List GCS Buckets
       run: gcloud storage buckets list
