@@ -33,6 +33,8 @@ jobs:
       run: |
         gcloud config set auth/impersonate_service_account deployment-service-account@mystic-castle-460413-g6.iam.gserviceaccount.com
 
-    - name: List GCS Buckets
-      run: gcloud storage buckets list
+    - name: Run CI checks
+      uses: augustinechiajh/gha-ci-tf
+      with:
+        terraform-work-dir: 'iac/tf'
     
