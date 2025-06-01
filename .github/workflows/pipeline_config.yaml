@@ -27,6 +27,13 @@ jobs:
       env:
         ID_TOKEN: ${{ steps.auth.outputs.id_token }}
 
+    - name: Dump OIDC token claims
+      run: |
+        TOKEN=$(curl -s "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://github.com/${{ github.repository }}" \
+          -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" | jq -r .value)
+  
+        echo "$TOKEN" | cut -d '.' -f2 | base64 -d | jq
+
     - name: Authenticate to GCP
       uses: 'google-github-actions/auth@v2'
       with:
