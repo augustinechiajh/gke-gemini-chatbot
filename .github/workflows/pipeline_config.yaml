@@ -48,7 +48,7 @@ jobs:
   cd:
     name: CD - Terraform Apply
     needs: ci
-    uses: augustinechiajh/gha-cd-tf/.github/workflows/terraform-deployment.yaml@main
+    uses: augustinechiajh/gha-cd-tf/.github/workflows/terraform-deployment-gcp.yaml@main
     with:
       environment: dev
       terraform-work-dir: 'iac/tf'
