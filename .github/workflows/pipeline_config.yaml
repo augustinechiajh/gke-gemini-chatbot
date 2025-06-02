@@ -2,8 +2,6 @@ name: CI/CD pipeline
 
 on:
   push:
-    paths:
-      - 'iac/tf/**'
     branches:
       - main
   pull_request:
