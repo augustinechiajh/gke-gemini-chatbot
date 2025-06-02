@@ -10,6 +10,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
   id-token: write
   contents: read
@@ -46,30 +50,36 @@ jobs:
       with:
         terraform-work-dir: 'iac/tf'
 
-  cd:
-    needs: ci
-    name: CD - Terraform Apply
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Authenticate to GCP
-      uses: 'google-github-actions/auth@v2'
-      with:
-        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-        service_account: ${{ secrets.GCP_IMPERSONATOR_SA }}
-    
-    - name: set up gcloud
-      uses: google-github-actions/setup-gcloud@v2
-    
-    - name: Assume deployment service account
-      run: |
-        gcloud config set auth/impersonate_service_account ${{ secrets.GCP_DEPLOYMENT_SA }}
-
     - name: Run CD Pipeline
       uses: augustinechiajh/gha-cd-tf@main
       with:
         environment: dev
         terraform-work-dir: 'iac/tf'
+
+  # cd:
+  #   needs: ci
+  #   name: CD - Terraform Apply
+  #   runs-on: ubuntu-latest
+  #   environment: dev
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
+
+  #   - name: Authenticate to GCP
+  #     uses: 'google-github-actions/auth@v2'
+  #     with:
+  #       workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+  #       service_account: ${{ secrets.GCP_IMPERSONATOR_SA }}
+    
+  #   - name: set up gcloud
+  #     uses: google-github-actions/setup-gcloud@v2
+    
+  #   - name: Assume deployment service account
+  #     run: |
+  #       gcloud config set auth/impersonate_service_account ${{ secrets.GCP_DEPLOYMENT_SA }}
+
+  #   - name: Run CD Pipeline
+  #     uses: augustinechiajh/gha-cd-tf@main
+  #     with:
+  #       environment: dev
+  #       terraform-work-dir: 'iac/tf'
