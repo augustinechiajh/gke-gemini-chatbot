@@ -14,8 +14,9 @@ terraform {
 }
 
 provider "google" {
-  project = var.project_id
-  region  = var.region
+  project                     = var.project_id
+  region                      = var.region
+  impersonate_service_account = "deployment-service-account@${var.project_id}.iam.gserviceaccount.com"
 }
 
 provider "kubernetes" {
