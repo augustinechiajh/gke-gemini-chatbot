@@ -1,5 +1,5 @@
 # Ignore terraform state and plan files 
-*.tfplan
+*tfplan
 
 # Ignore .terraform directory
 .terraform/

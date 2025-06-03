@@ -61,3 +61,9 @@ resource "google_project_iam_member" "terraform_roles" {
   role    = each.value
   member  = "serviceAccount:${google_service_account.terraform_deployer.email}"
 }
+
+resource "google_storage_bucket_iam_member" "grant_storage_admin" {
+  bucket = "terraform-gke-llm-tf-state"
+  role   = "roles/storage.admin"
+  member = "serviceAccount:${google_service_account.gha_impersonator.email}"
+}
