@@ -56,6 +56,8 @@ resource "google_project_iam_member" "terraform_roles" {
     "roles/logging.logWriter",
     "roles/monitoring.metricWriter",
     "roles/storage.admin",
+    "roles/resourcemanager.projectIamAdmin",
+    "roles/iam.securityAdmin"
   ])
   project = var.project_id
   role    = each.value
