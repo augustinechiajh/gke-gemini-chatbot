@@ -7,7 +7,7 @@ resource "google_container_cluster" "primary" {
   }
 
   lifecycle {
-    ignore_changes = ["node_config"]
+    ignore_changes = [node_config]
   }
 
   remove_default_node_pool = true

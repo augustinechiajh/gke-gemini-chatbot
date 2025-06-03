@@ -69,3 +69,9 @@ resource "google_storage_bucket_iam_member" "grant_storage_admin" {
   role   = "roles/storage.admin"
   member = "serviceAccount:${google_service_account.gha_impersonator.email}"
 }
+
+resource "google_service_account_iam_member" "deployment_sa_impersonate_compute_sa" {
+  service_account_id = "projects/${var.project_id}/serviceAccounts/gke-node-sa@${var.project_id}.iam.gserviceaccount.com"
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${google_service_account.terraform_deployer.email}"
+}
