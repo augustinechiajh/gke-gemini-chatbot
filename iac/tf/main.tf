@@ -5,7 +5,7 @@ resource "google_container_cluster" "primary" {
   node_config {
     service_account = google_service_account.gke_node_sa.email
   }
-  
+
   lifecycle {
     ignore_changes = ["node_config"]
   }
