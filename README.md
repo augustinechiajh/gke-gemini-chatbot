@@ -25,3 +25,5 @@ Access the app here: [https://your-app-url.com](https://your-app-url.com)
 ## How to Run Locally (under construction)
 
 1. Clone the repo
+
+> You must enable Cloud Resource Manager API at https://cloud.google.com/resource-manager/reference/rest/
