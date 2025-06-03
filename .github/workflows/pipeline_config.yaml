@@ -46,7 +46,7 @@ jobs:
         terraform-work-dir: 'iac/tf'
 
   cd:
-    name: CD - Terraform Deployment
+    name: CD - Terraform Deployment Workflow
     needs: ci
     uses: augustinechiajh/gha-cd-tf/.github/workflows/terraform-deployment-gcp.yaml@main
     with:
