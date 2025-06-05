@@ -50,6 +50,7 @@ data "kubernetes_service" "chatbot_service_status" {
   ]
 }
 
-output "load_balancer_ip" {
-  value = kubernetes_service.chatbot_service.status[0].load_balancer[0].ingress[0].ip
+output "chatbot_load_balancer_ip" {
+  description = "The external IP of the chatbot service load balancer"
+  value       = try(data.kubernetes_service.chatbot_service_status.status[0].load_balancer[0].ingress[0].ip, "IP not assigned yet")
 }
