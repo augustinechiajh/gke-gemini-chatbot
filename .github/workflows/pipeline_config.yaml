@@ -57,3 +57,4 @@ jobs:
     secrets:
       GCP_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
       GCP_IMPERSONATOR_SA: ${{ secrets.GCP_IMPERSONATOR_SA }}
+      
