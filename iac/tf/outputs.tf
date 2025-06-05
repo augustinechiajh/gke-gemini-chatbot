@@ -39,10 +39,17 @@ EOF
   sensitive   = true
 }
 
-output "node_instance_group_urls" {
-  value = google_container_node_pool.primary_nodes.instance_group_urls
+data "kubernetes_service" "chatbot_service_status" {
+  metadata {
+    name      = kubernetes_service.chatbot_service.metadata[0].name
+    namespace = kubernetes_service.chatbot_service.metadata[0].namespace
+  }
+
+  depends_on = [
+    kubernetes_service.chatbot_service
+  ]
 }
 
-output "node_managed_instance_group_urls" {
-  value = google_container_node_pool.primary_nodes.managed_instance_group_urls
+output "load_balancer_ip" {
+  value = kubernetes_service.chatbot_service.status[0].load_balancer[0].ingress[0].ip
 }
