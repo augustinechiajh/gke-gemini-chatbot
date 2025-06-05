@@ -75,3 +75,9 @@ resource "google_service_account_iam_member" "deployment_sa_impersonate_compute_
   role               = "roles/iam.serviceAccountUser"
   member             = "serviceAccount:${google_service_account.terraform_deployer.email}"
 }
+
+resource "google_project_iam_member" "deployment_sa_impersonate_compute" {
+  project = var.project_id
+  role    = "roles/compute.viewer"
+  member  = "serviceAccount:${google_service_account.terraform_deployer.email}"
+}
