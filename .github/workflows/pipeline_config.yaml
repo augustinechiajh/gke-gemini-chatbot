@@ -52,8 +52,8 @@ jobs:
     with:
       environment: dev
       terraform-work-dir: 'iac/tf'
-      is-destroy: false
-      debug-logs: false
+      is-destroy: true
+      debug-logs: true
     secrets:
       GCP_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
       GCP_IMPERSONATOR_SA: ${{ secrets.GCP_IMPERSONATOR_SA }}
