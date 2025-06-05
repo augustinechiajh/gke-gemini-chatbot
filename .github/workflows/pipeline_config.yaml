@@ -2,8 +2,6 @@ name: CI/CD pipeline
 
 on:
   push:
-    # paths:
-    #   - 'iac/tf/**'
     branches:
       - main
   pull_request:
@@ -33,13 +31,6 @@ jobs:
         workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
         service_account: ${{ secrets.GCP_IMPERSONATOR_SA }}
     
-    # - name: set up gcloud
-    #   uses: google-github-actions/setup-gcloud@v2
-    
-    # - name: Assume deployment service account
-    #   run: |
-    #     gcloud config set auth/impersonate_service_account ${{ secrets.GCP_DEPLOYMENT_SA }}
-    
     - name: Run CI checks
       uses: augustinechiajh/gha-ci-tf@main
       with:
@@ -57,4 +48,3 @@ jobs:
     secrets:
       GCP_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
       GCP_IMPERSONATOR_SA: ${{ secrets.GCP_IMPERSONATOR_SA }}
-      
