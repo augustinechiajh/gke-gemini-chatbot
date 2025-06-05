@@ -44,5 +44,5 @@ output "node_instance_group_urls" {
 }
 
 output "node_managed_instance_group_urls" {
-  value = google_container_node_pool.primary_nodes.managed_instance_group_urls  
+  value = google_container_node_pool.primary_nodes.managed_instance_group_urls
 }
