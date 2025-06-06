@@ -36,7 +36,7 @@ resource "kubernetes_deployment" "chatbot_app" {
       spec {
         container {
           name  = "chatbot-ui"
-          image = "gcr.io/mystic-castle-460413-g6/streamlit-chatbot:latest"
+          image = var.frontend_image_path
 
           port {
             container_port = 8501
@@ -117,7 +117,7 @@ resource "kubernetes_deployment" "ollama" {
       spec {
         container {
           name  = "ollama"
-          image = "gcr.io/mystic-castle-460413-g6/ollama-server:latest"
+          image = var.ollama_image_path
 
           port {
             container_port = 11434

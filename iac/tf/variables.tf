@@ -17,3 +17,11 @@ variable "cluster_name" {
   default = "chatbot-cluster"
   type    = string
 }
+
+variable "frontend_image_path" {
+  type = string
+}
+
+variable "ollama_image_path" {
+  type = string
+}
