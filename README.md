@@ -12,38 +12,6 @@ This shows the deployment of the infrastructure. The frontend used is a Streamli
 
 IAM follows least privileged principles, the bare minimum to provision the current infrastructure. 
 
-## Areas of Improvement
-
-### Availability & Resiliency
-- **Current State**: The GKE cluster is deployed in a single zone (`us-central1-a`) with horizontal pod autoscaling currently disabled.
-- **Improvement Opportunities**:
-  - Enable **Horizontal Pod Autoscaling** to handle variable workloads more efficiently.
-  - Transition to a regional GKE cluster (e.g. us-central1)to improve availability and mitigate the risk of zonal failures.
-  - These enhancements can reduce downtime and improve fault tolerance in production environments.
-
-### Networking & Security
-- **Current State**: The infrastructure is deployed in the default VPC, which lacks fine-grained control over traffic flow and isolation.
-- **Improvement Opportunities**:
-  - Migrate to a custom VPC to define more secure ingress and egress rules, subnets, and firewall configurations.
-  - Consider using private clusters and internal load balancers for services not exposed to the internet.
-  - Introduce API Gateway for logging and rate limiting, controlling LLM usage and network attacks.
-
-### LLM Enhancements
-- **Current State**: The Ollama-hosted `phi3.5` model is used out-of-the-box with no context injection (RAG), prompt control, or hallucination mitigation.
-- **Improvement Opportunities**:
-  - Integrate LangChain to enable memory, prompt templates, and context handling.
-  - Add Retrieval-Augmented Generation (RAG) pipelines using a lightweight vector database to ground the model’s output in factual data.
-  - Introduce guardrails or response validation layers to reduce hallucinations and enforce output structure.
-
-### Automation
-- **Current State**: Even though provisioning of the infra is automated, using reusable GHA workflows and actions, pushing images to Artifact Repository is still not automated. There are still many steps involved in setting up the user's GitHub repo as well.
-- **Improvement Opportunities**:
-  - Include docker build and pushes as part of the GitHub Actions pipeline_config.yaml.
-  - Convert this repository into a GitHub template repo, allowing users to easily generate their own copies.
-  - Provide bootstrap scripts (`setup.sh` or `bootstrap.py`) that prompt for inputs like `PROJECT_ID`, `REGION`, and other environment variables, and automatically apply them across the necessary files (Terraform, workflows, etc).
-  - Automate the initialization of required secrets, Terraform state configuration, or service accounts if applicable.
-
-
 ## Features
 
 - **Response streaming**: Real-time streaming of model response from Ollama-hosted Phi3.5 LLM.
@@ -75,6 +43,37 @@ Screenshot of the deployed GKE cluster and workloads visible on the Cloud Consol
 
 ![GKE Cluster Provisioning](assets/GCP_cluster_provisioning.jpg)
 ![GKE Workloads](assets/GCP_kubernetes_workloads.jpg)
+
+## Areas of Improvement
+
+### Availability & Resiliency
+- **Current State**: The GKE cluster is deployed in a single zone (`us-central1-a`) with horizontal pod autoscaling currently disabled.
+- **Improvement Opportunities**:
+  - Enable **Horizontal Pod Autoscaling** to handle variable workloads more efficiently.
+  - Transition to a regional GKE cluster (e.g. us-central1)to improve availability and mitigate the risk of zonal failures.
+  - These enhancements can reduce downtime and improve fault tolerance in production environments.
+
+### Networking & Security
+- **Current State**: The infrastructure is deployed in the default VPC, which lacks fine-grained control over traffic flow and isolation.
+- **Improvement Opportunities**:
+  - Migrate to a custom VPC to define more secure ingress and egress rules, subnets, and firewall configurations.
+  - Consider using private clusters and internal load balancers for services not exposed to the internet.
+  - Introduce API Gateway for logging and rate limiting, controlling LLM usage and network attacks.
+
+### LLM Enhancements
+- **Current State**: The Ollama-hosted `phi3.5` model is used out-of-the-box with no context injection (RAG), prompt control, or hallucination mitigation.
+- **Improvement Opportunities**:
+  - Integrate LangChain to enable memory, prompt templates, and context handling.
+  - Add Retrieval-Augmented Generation (RAG) pipelines using a lightweight vector database to ground the model’s output in factual data.
+  - Introduce guardrails or response validation layers to reduce hallucinations and enforce output structure.
+
+### Automation
+- **Current State**: Even though provisioning of the infra is automated, using reusable GHA workflows and actions, pushing images to Artifact Repository is still not automated. There are still many steps involved in setting up the user's GitHub repo as well.
+- **Improvement Opportunities**:
+  - Include docker build and pushes as part of the GitHub Actions pipeline_config.yaml.
+  - Convert this repository into a GitHub template repo, allowing users to easily generate their own copies.
+  - Provide bootstrap scripts (`setup.sh` or `bootstrap.py`) that prompt for inputs like `PROJECT_ID`, `REGION`, and other environment variables, and automatically apply them across the necessary files (Terraform, workflows, etc).
+  - Automate the initialization of required secrets, Terraform state configuration, or service accounts if applicable.
 
 ## How to Run Locally (under construction)
 
