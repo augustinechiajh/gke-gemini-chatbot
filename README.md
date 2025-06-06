@@ -36,17 +36,17 @@ IAM follows least privileged principles, the bare minimum to provision the curre
   - Introduce guardrails or response validation layers to reduce hallucinations and enforce output structure.
 
 ### Automation
-- **Current State**: Even though provisioning of the infra is automated, using reusable GHA workflows and actions, pushing images to Artifact Repository is still not automated. There are still many steps involved in setting up the user's GitHub repo as well
+- **Current State**: Even though provisioning of the infra is automated, using reusable GHA workflows and actions, pushing images to Artifact Repository is still not automated. There are still many steps involved in setting up the user's GitHub repo as well.
 - **Improvement Opportunities**:
-  - Include docker build and pushes as part of the GitHub Actions pipeline_config.yaml
+  - Include docker build and pushes as part of the GitHub Actions pipeline_config.yaml.
   - Convert this repository into a GitHub template repo, allowing users to easily generate their own copies.
-  - Provide bootstrap scripts (`setup.sh` or `bootstrap.py`) that prompt for inputs like `PROJECT_ID`, `REGION`, and other environment variables, and automatically apply them across the necessary files (Terraform, workflows, etc.).
+  - Provide bootstrap scripts (`setup.sh` or `bootstrap.py`) that prompt for inputs like `PROJECT_ID`, `REGION`, and other environment variables, and automatically apply them across the necessary files (Terraform, workflows, etc).
   - Automate the initialization of required secrets, Terraform state configuration, or service accounts if applicable.
 
 
 ## Features
 
-- **Response streaming** from Ollama-hosted Phi3.5 LLM.
+- **Response streaming**: Real-time streaming of model response from Ollama-hosted Phi3.5 LLM.
 - **Automated Kubernetes Deployment**: Infrastructure is provisioned and deployed to GKE using Terraform and GitHub Actions. 
 - **Reusable CI/CD Components**:
   - [`gha-ci-tf`](https://github.com/augustinechiajh/gha-ci-tf): Reusable CI workflow for Terraform validate and tflinting.
@@ -70,7 +70,7 @@ This screenshot shows the teardown process initiated from GitHub Actions, includ
 ![Destroy Configuration](assets/tf_destroy_workflow_config.jpg)
 ![Destroy Success](assets/tf_destroy_result_tflog_enabled.jpg)
 
-### 3. GKE Cluster on Google Cloud Console (Optional)
+### 3. GKE Cluster on Google Cloud Console
 Screenshot of the deployed GKE cluster and workloads visible on the Cloud Console dashboard.
 
 ![GKE Cluster Provisioning](assets/GCP_cluster_provisioning.jpg)
